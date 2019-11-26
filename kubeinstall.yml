@@ -1,0 +1,23 @@
+---
+
+- name: Create kube setup
+  hosts: kubemaster,kubenode 
+  gather_facts: yes
+  become: yes
+  roles:
+    - { role: kubernetes/common, tags: docker }
+
+- name: Setup Kubernetes master
+  hosts: kubemaster
+  gather_facts: yes
+  become: yes
+  roles:
+    - { role: kubernetes/master, tags: master }
+
+- name: Setup Kubernetes worker
+  hosts: kubenode
+  gather_facts: yes
+  become: yes
+  roles:
+    - { role: kubernetes/node, tags: node }
+

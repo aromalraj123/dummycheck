@@ -1,0 +1,11 @@
+---
+
+- name: printing join
+  debug: msg="{{hostvars['K8S_TOKEN_HOLDER']['token']}}"
+ 
+- name: join cluster
+  become: yes
+  shell: "{{ hostvars['K8S_TOKEN_HOLDER']['token'] }} >> node_joined.txt"
+  args:
+    chdir: $HOME
+    creates: node_joined.txt
